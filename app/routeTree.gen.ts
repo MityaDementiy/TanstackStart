@@ -11,9 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TimeImport } from './routes/time'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const TimeRoute = TimeImport.update({
+  id: '/time',
+  path: '/time',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/time': {
+      id: '/time'
+      path: '/time'
+      fullPath: '/time'
+      preLoaderRoute: typeof TimeImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/time': typeof TimeRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/time': typeof TimeRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/time': typeof TimeRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/time'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/time'
+  id: '__root__' | '/' | '/time'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TimeRoute: typeof TimeRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TimeRoute: TimeRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/time"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/time": {
+      "filePath": "time.tsx"
     }
   }
 }
