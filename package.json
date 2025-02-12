@@ -9,10 +9,13 @@
     "build": "vinxi build",
     "start": "vinxi start"
   },
-  "keywords": ["tanstack start"],
+  "keywords": [
+    "tanstack start"
+  ],
   "author": "MD",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-router": "^1.95.1",
     "@tanstack/start": "^1.95.1",
     "react": "^19.0.0",
@@ -20,6 +23,7 @@
     "vinxi": "^0.5.1"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.66.0",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",

@@ -3,8 +3,15 @@ import {
   ScrollRestoration,
   createRootRoute,
 } from '@tanstack/react-router';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Meta, Scripts } from '@tanstack/start';
 import type { ReactNode } from 'react';
+
+const queryClient = new QueryClient();
   
 export const Route = createRootRoute({
   head: () => ({
@@ -26,9 +33,11 @@ export const Route = createRootRoute({
   
 function RootComponent() {
   return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
+    <QueryClientProvider client={queryClient}>
+      <RootDocument>
+        <Outlet />
+      </RootDocument>
+    </QueryClientProvider>
   );
 }
   
@@ -42,6 +51,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <ReactQueryDevtools initialIsOpen={false} />
       </body>
     </html>
   );
