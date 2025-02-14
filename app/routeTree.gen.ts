@@ -11,10 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WeatherImport } from './routes/weather'
 import { Route as TimeImport } from './routes/time'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const WeatherRoute = WeatherImport.update({
+  id: '/weather',
+  path: '/weather',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const TimeRoute = TimeImport.update({
   id: '/time',
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimeImport
       parentRoute: typeof rootRoute
     }
+    '/weather': {
+      id: '/weather'
+      path: '/weather'
+      fullPath: '/weather'
+      preLoaderRoute: typeof WeatherImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/time': typeof TimeRoute
+  '/weather': typeof WeatherRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/time': typeof TimeRoute
+  '/weather': typeof WeatherRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/time': typeof TimeRoute
+  '/weather': typeof WeatherRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/time'
+  fullPaths: '/' | '/time' | '/weather'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/time'
-  id: '__root__' | '/' | '/time'
+  to: '/' | '/time' | '/weather'
+  id: '__root__' | '/' | '/time' | '/weather'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TimeRoute: typeof TimeRoute
+  WeatherRoute: typeof WeatherRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TimeRoute: TimeRoute,
+  WeatherRoute: WeatherRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/time"
+        "/time",
+        "/weather"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/time": {
       "filePath": "time.tsx"
+    },
+    "/weather": {
+      "filePath": "weather.tsx"
     }
   }
 }

@@ -2,6 +2,7 @@ import {
   Outlet,
   ScrollRestoration,
   createRootRoute,
+  Link,
 } from '@tanstack/react-router';
 import {
   QueryClient,
@@ -48,6 +49,13 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
+        <nav style={{ padding: '1rem' }}>
+          <Link to="/">Home</Link>
+          {' | '}
+          <Link to="/weather">Weather</Link>
+          {' | '}
+          <Link to="/time">Time</Link>
+        </nav>
         {children}
         <ScrollRestoration />
         <Scripts />
